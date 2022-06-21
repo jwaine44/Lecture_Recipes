@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css')}}"> <!-- Need to link css from a folder called static ALWAYS! -->
+    <title>Edit Recipe</title>
+</head>
+<body>
+    <form action="/recipe/edit/{{recipe.id}}" method="POST">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{recipe.name}}"/>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea name="description" id="description">{{recipe.description}}</textarea>
+
+            <label for="instructions">Instructions:</label>
+            <textarea name="instructions" id="instructions">{{recipe.instructions}}</textarea>
+            
+            <label for="created_at">Date made on:</label>
+            <input type="date" id="created_at" name="created_at">
+            
+            <!-- If doing a drop down, it should be selected instead of checked below-->
+            <label for="under_thirty">Under 30 minutes?</label>
+            <input type="radio" name="under_thirty" value="1" {% if recipe.under_thirty == 1 %} checked {% endif %}>Yes
+
+            <input type="radio" name="under_thirty" value="0" {% if recipe.under_thirty == 0 %} checked {% endif %}>No
+            <input type="hidden" name="user_id">
+            
+            <button type="submit">
+                Update
+            </button>
+        </div>
+    </form>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
